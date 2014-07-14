@@ -20,15 +20,13 @@ if( !file.exists("activity.csv") )
   unzip("activity.zip")
 }
 data.raw <- read.csv("activity.csv",header=TRUE,sep=",")
+# no additional prepocessing done, NAs retained, dates not coerced
+
 file.remove("activity.csv")
 ```
 
 ```
 ## [1] TRUE
-```
-
-```r
-# no additional prepocessing done, NAs retained, dates not coerced
 ```
 
 
@@ -113,7 +111,7 @@ sum(data.raw.imputed[!is.na(data.raw$steps),]$steps != data.raw[!is.na(data.raw$
 
 
 ```r
-total.imputed <- ddply(data.raw, .(date), summarize,sum = sum(steps))
+total.imputed <- ddply(data.raw.imputed, .(date), summarize,sum = sum(steps))
 hist(total.imputed$sum,breaks=50,main="total number of steps taken per day of imputed data",xlab="steps",ylab="frequency")
 ```
 
@@ -135,9 +133,10 @@ median(total.imputed$sum,na.rm=TRUE)
 ```
 
 ```
-## [1] 10765
+## [1] 10766
 ```
-'total nr steps' mean and median of original and imputed are the same
+'total nr steps' mean of original and imputed are the same
+'total nr steps' median imputed data a bit higher than original
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -151,6 +150,7 @@ xyplot(avgsteps ~ interval | wp, data = avg.week, layout = c(1, 2), type="l", ma
 ```
 
 ![plot of chunk unnamed-chunk-13](./PA1_template_files/figure-html/unnamed-chunk-13.png) 
+
 Subject appears to start the day of a little later in the weekend and has a higher overall activity pattern during the day. In the weekend there is more activity late evening.
 
 
