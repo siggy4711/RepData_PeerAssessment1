@@ -36,7 +36,7 @@ Only complete cases are considered, ie records with values for all fields
 
 ```r
 total <- ddply(data.raw[complete.cases(data.raw),], .(date), summarize,sum = sum(steps))
-hist(total$sum,breaks=100,main="total number of steps taken per day",xlab="steps",ylab="frequency")
+hist(total$sum,breaks=50,main="total number of steps taken per day",xlab="steps",ylab="frequency")
 ```
 
 ![plot of chunk unnamed-chunk-2](./PA1_template_files/figure-html/unnamed-chunk-2.png) 
